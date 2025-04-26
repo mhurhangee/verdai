@@ -21,7 +21,7 @@ import { OrganizationSwitcher } from '@/components/clerk-org-switcher'
 import { UserButton } from '@/components/clerk-user-button'
 import { ThemeToggle } from '@/components/theme-toggle'
 
-import { FolderClosedIcon, LayoutDashboardIcon, Plus } from 'lucide-react'
+import { FolderClosedIcon, LayoutDashboardIcon, Plus, BookOpenIcon } from 'lucide-react'
 
 export type HubSidebarProps = React.ComponentProps<typeof Sidebar>
 
@@ -68,7 +68,18 @@ export function HubSidebar({ ...props }: HubSidebarProps) {
       <SidebarFooter>
         <SidebarGroup>
           <SidebarGroupLabel>Support</SidebarGroupLabel>
-          <SidebarGroupContent></SidebarGroupContent>
+          <SidebarGroupContent>
+          <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname.startsWith('/hub/docs')}>
+                  <Link href="/hub/docs">
+                    <BookOpenIcon className="mr-1 inline-block size-4" />
+                    Docs
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
         </SidebarGroup>
         <div className="flex flex-row items-center justify-between">
           <UserButton />
