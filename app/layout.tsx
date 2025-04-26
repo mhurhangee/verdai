@@ -20,11 +20,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-const title = `Verdai`
+const title = `VerdAI`
 
 export const metadata: Metadata = {
   title: process.env.NODE_ENV === 'development' ? ` (dev) ${title}` : title,
-  description: 'Verdai',
+  description: 'VerdAI | Grow with AI',
   icons: {
     icon: [
       {

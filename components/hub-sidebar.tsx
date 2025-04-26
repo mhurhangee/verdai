@@ -40,7 +40,7 @@ export function HubSidebar({ ...props }: HubSidebarProps) {
                 <SidebarMenuButton asChild isActive={pathname === '/hub'}>
                   <Link href="/hub">
                     <LayoutDashboardIcon className="mr-1 inline-block size-4" />
-                    Dashboard
+                    Hub
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
