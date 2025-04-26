@@ -1,10 +1,11 @@
 import { SignInButton } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
-import { Github, Trees } from 'lucide-react'
 
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+
+import { Github, Trees } from 'lucide-react'
 
 export async function Landing() {
   const { userId } = await auth()
