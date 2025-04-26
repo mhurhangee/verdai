@@ -16,8 +16,8 @@ export async function Landing() {
         <div className="flex flex-col items-center gap-6">
           <div className="mb-2 flex items-center gap-3">
             <Trees className="size-16 text-green-600" />
-            <span className="bg-gradient-to-br from-green-500 to-green-700 bg-clip-text text-4xl font-extrabold text-transparent">
-              Verda
+            <span className="bg-gradient-to-br from-green-500 to-green-700 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent">
+              Verdai
             </span>
           </div>
           <div className="text-muted-foreground mb-4 font-mono text-xl font-medium">
