@@ -1,0 +1,1 @@
+ALTER TABLE "user_projects" ALTER COLUMN "project_id" SET DATA TYPE varchar(12);
