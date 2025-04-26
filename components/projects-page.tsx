@@ -1,7 +1,7 @@
 'use client'
 
 import { ProjectCreateDialog } from '@/components/project-create-dialog'
-import { ProjectActions } from '@/components/projects-action-buttons'
+import { ProjectActions } from '@/components/project-action-buttons'
 import { DataDisplay, SortOption } from '@/components/datadisplay'
 import { DataItem } from '@/components/dataitem'
 import { DataItemSkeleton } from '@/components/dataitem-skeleton'
