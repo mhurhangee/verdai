@@ -120,3 +120,40 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* view transition */
+::view-transition-group(root) {
+  animation-duration: 0.7s;
+  animation-timing-function: ease-in-out;
+}
+
+::view-transition-new(root) {
+  animation-name: reveal-light;
+}
+
+::view-transition-old(root),
+.dark::view-transition-old(root) {
+  animation: none;
+  z-index: -1;
+}
+.dark::view-transition-new(root) {
+  animation-name: reveal-dark;
+}
+
+@keyframes reveal-dark {
+  from {
+    clip-path: polygon(171% 50%, 50% -71%, 50% -71%, 171% 50%);
+  }
+  to {
+    clip-path: polygon(171% 50%, 50% -71%, -50% 71%, 50% 171%);
+  }
+}
+
+@keyframes reveal-light {
+  from {
+    clip-path: polygon(50% 171%, -50% 71%, -50% 71%, 50% 171%);
+  }
+  to {
+    clip-path: polygon(50% 171%, -50% 71%, 50% -71%, 171% 50%);
+  }
+}
