@@ -1,4 +1,4 @@
-import { ApiError } from '@/lib/api-error'
+import { ApiError } from '@/lib/utils'
 
 export const fetcher = async (url: string) => {
     const res = await fetch(url)

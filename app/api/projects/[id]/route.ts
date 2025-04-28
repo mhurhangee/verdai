@@ -1,11 +1,9 @@
 import { db } from '@/lib/db/drizzle'
 import { userProjects } from '@/lib/db/schema'
-import { createErrorResponse, HTTP_STATUS, ApiError } from '@/lib/api-error'
+import { createErrorResponse, HTTP_STATUS, ApiError, parseIO, getUserId } from '@/lib/utils'
 import { ProjectPatchSchema } from '@/types/project'
-import { getUserId } from '@/lib/get-user-id'
 import { eq, and } from 'drizzle-orm'
 import { NextRequest, NextResponse } from 'next/server'
-import { parseIO } from '@/lib/parse-io'
 
 export const runtime = 'edge'
 
@@ -18,7 +16,7 @@ export async function GET({ params }: { params: Promise<{ id: string }> }) {
 
     // Get project by id and user
     const project = await db.query.userProjects.findFirst({
-      where: (p, { eq, and }) => and(eq(p.projectId, id), eq(p.userId, userId))
+      where: (p, { eq, and }) => and(eq(p.id, id), eq(p.userId, userId))
     })
 
     if (!project) {
@@ -50,7 +48,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     const updated = await db
       .update(userProjects)
       .set(updateData)
-      .where(and(eq(userProjects.projectId, id), eq(userProjects.userId, userId)))
+      .where(and(eq(userProjects.id, id), eq(userProjects.userId, userId)))
       .returning()
 
     // Return success response and updated project
@@ -72,7 +70,7 @@ export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
 
     // Delete project
     const result = await db.delete(userProjects)
-      .where(and(eq(userProjects.projectId, id), eq(userProjects.userId, userId)))
+      .where(and(eq(userProjects.id, id), eq(userProjects.userId, userId)))
       .returning()
 
     if (result.length === 0) {
