@@ -122,7 +122,6 @@
   }
 }
 
-
 /* view transition */
 ::view-transition-group(root) {
   animation-duration: 0.7s;
@@ -159,4 +158,3 @@
     clip-path: polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%);
   }
 }
-

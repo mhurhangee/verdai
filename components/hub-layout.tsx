@@ -1,5 +1,9 @@
 'use client'
 
+import React, { Fragment, ReactNode } from 'react'
+
+import Link from 'next/link'
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,13 +13,14 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
-import { ArrowLeftIcon } from 'lucide-react'
 import { SidebarTrigger } from '@/components/ui/sidebar'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { useIsMobile } from '@/hooks/use-mobile'
+
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
-import React, { Fragment, ReactNode } from 'react'
+
+import { useIsMobile } from '@/hooks/use-mobile'
+
+import { ArrowLeftIcon } from 'lucide-react'
 
 export interface BreadcrumbItem {
   label: string
@@ -70,7 +75,6 @@ export function HubLayout({
           className
         )}
       >
-
         {/* Top Header with Sidebar Toggle and Breadcrumbs */}
         <div className="bg-background sticky top-0 z-0 mb-4 flex items-center justify-between gap-4 py-2">
           <div className="flex items-center gap-4 overflow-hidden">
@@ -106,15 +110,15 @@ export function HubLayout({
             )}
           </div>
           {!isMobile && backTo && (
-          <div>
-            <Link href={backTo.href} legacyBehavior passHref>
-              <Button variant="ghost" className="px-2 text-muted-foreground font-medium gap-1">
-                <ArrowLeftIcon className="size-4" />
-                {backTo.label}
-              </Button>
-            </Link>
-          </div>
-        )}
+            <div>
+              <Link href={backTo.href} legacyBehavior passHref>
+                <Button variant="ghost" className="text-muted-foreground gap-1 px-2 font-medium">
+                  <ArrowLeftIcon className="size-4" />
+                  {backTo.label}
+                </Button>
+              </Link>
+            </div>
+          )}
 
           {/* Allow actions in the top bar for easier mobile access */}
           {isMobile && combinedActions}
@@ -129,7 +133,6 @@ export function HubLayout({
                 isMobile ? 'flex-col' : 'flex-row items-center justify-between'
               )}
             >
-              
               {title && (
                 <div className="flex items-center gap-2">
                   {icon && <span className="text-primary mr-2">{icon}</span>}

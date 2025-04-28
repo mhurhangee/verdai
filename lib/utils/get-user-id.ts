@@ -1,5 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
-import { ApiError, HTTP_STATUS } from '@/lib/api-error'
+
+import { ApiError, HTTP_STATUS } from '@/lib/utils'
 
 // Get user ID or throw error
 export async function getUserId() {

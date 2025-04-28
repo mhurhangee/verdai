@@ -1,12 +1,15 @@
+import { NextRequest, NextResponse } from 'next/server'
+
+import { HTTP_STATUS, createErrorResponse } from '@/lib/api-error'
 import { db } from '@/lib/db/drizzle'
 import { userProjects } from '@/lib/db/schema'
-import { createErrorResponse, HTTP_STATUS } from '@/lib/api-error'
-import { genId } from '@/lib/id'
-import { eq } from 'drizzle-orm'
-import { NextRequest, NextResponse } from 'next/server'
 import { getUserId } from '@/lib/get-user-id'
-import { ProjectPostSchema } from '@/types/project'
+import { genId } from '@/lib/id'
 import { parseIO } from '@/lib/parse-io'
+
+import { ProjectPostSchema } from '@/types/project'
+
+import { eq } from 'drizzle-orm'
 
 export const runtime = 'edge'
 
@@ -34,12 +37,12 @@ export async function POST(req: NextRequest) {
     const userId = await getUserId()
 
     // Parse request body or throw error
-    const { projectName, description } = parseIO(ProjectPostSchema, await req.json())
+    const { title, description } = parseIO(ProjectPostSchema, await req.json())
 
     // Create new project
     const [project] = await db
       .insert(userProjects)
-      .values({ userId, projectId: genId(), projectName, description })
+      .values({ userId, projectId: genId(), title, description })
       .returning()
 
     // Return success response and project

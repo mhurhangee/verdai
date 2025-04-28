@@ -1,31 +1,20 @@
 import { z } from 'zod'
 
-export interface Project {
-  projectId: string // changed from number to string for consistency with DB schema
-  userId: string
-  projectName: string
-  description?: string
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface ProjectUpdate {
-  projectName?: string
-  description?: string
-  prompt?: string
-  updatedAt: Date
-}
-
-export const ProjectPatchSchema = z.object({
-  projectName: z.string().optional(),
-  emoji: z.string().optional(),
-  description: z.string().optional(),
-  prompt: z.string().optional(),
+export const ProjectSchema = z.object({
+  id: z.string().length(12),
+  userId: z.string().max(255),
+  title: z.string().min(3).max(52),
+  description: z.string().max(512).optional(),
+  createdAt: z.date(),
+  updatedAt: z.date()
 })
 
-export const ProjectPostSchema = z.object({
-  projectName: z.string().min(3),
-  emoji: z.string().optional(),
-  description: z.string().optional(),
-  prompt: z.string().optional(),
-})
+export type Project = z.infer<typeof ProjectSchema>
+
+export const ProjectUpdateSchema = ProjectSchema.pick({
+  title: true,
+  description: true,
+  updatedAt: true,
+});
+
+export type ProjectUpdate = z.infer<typeof ProjectUpdateSchema>
