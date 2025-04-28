@@ -1,0 +1,13 @@
+node_modules
+.next
+.vercel
+.clerk
+.env.local
+out
+dist
+build
+public
+docs
+pnpm-lock.yaml
+pnpm-workspace.yaml
+README.md
