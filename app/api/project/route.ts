@@ -34,7 +34,11 @@ export async function POST(req: NextRequest) {
     const userId = await getUserId()
 
     // Parse request body or throw error
-    const { title, description } = parseIO(ProjectUpdateSchema, await req.json(), "Invalid project data")
+    const { title, description } = parseIO(
+      ProjectUpdateSchema,
+      await req.json(),
+      'Invalid project data'
+    )
 
     // Create new project
     const [project] = await db
