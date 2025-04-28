@@ -141,7 +141,7 @@ export function HubLayout({
               )}
               {!isMobile && combinedActions}
             </div>
-            {description && <p className="text-muted-foreground mt-2 text-lg">{description}</p>}
+            {description && <div className="text-muted-foreground mt-2 text-lg">{description}</div>}
           </div>
         )}
 

@@ -40,7 +40,9 @@ export default function ProjectDetailsPage() {
           {isLoading ? <Skeleton className="w-32 h-6" /> : project?.title || "Project"}
         </span>
       }
-      description={isLoading ? <Skeleton className="w-48 h-4" /> : project?.description || "No description"}
+      description={isLoading ? (
+        <span className="inline-block align-middle"><Skeleton className="w-48 h-4" /></span>
+      ) : project?.description || "No description"}
       breadcrumbs={[
         { label: "Projects", href: "/hub/projects" },
         { label: isLoading ? "..." : project?.title || "Project" },
