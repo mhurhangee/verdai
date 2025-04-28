@@ -22,3 +22,11 @@ export const libraryItems = pgTable('library_items', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
 })
+
+export const feedback = pgTable('feedback', {
+  id: varchar('id', { length: 12 }).primaryKey(),
+  userId: varchar('user_id', { length: 255 }),
+  page: varchar('page', { length: 255 }),
+  message: varchar('message', { length: 2048 }).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+})

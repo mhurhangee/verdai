@@ -15,6 +15,13 @@
       "when": 1745865781360,
       "tag": "0001_cute_stardust",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1745877637697,
+      "tag": "0002_secret_abomination",
+      "breakpoints": true
     }
   ]
 }
