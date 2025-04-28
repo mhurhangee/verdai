@@ -12,7 +12,6 @@ export default function HubPage() {
       description="Welcome to your own VerdAI hub. Access your projects, files, and documentation."
       breadcrumbs={[{ label: 'Welcome' }]}
       fullWidth
-    >
-    </HubLayout>
+    ></HubLayout>
   )
 }
