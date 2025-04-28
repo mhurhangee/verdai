@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -19,6 +21,7 @@ import {
 
 import { OrganizationSwitcher } from '@/components/clerk-org-switcher'
 import { UserButton } from '@/components/clerk-user-button'
+import { FeedbackDialog } from '@/components/feedback-dialog'
 import { CreateProjectDialog } from '@/components/projects/create-project-dialog'
 import { ThemeToggle } from '@/components/theme-toggle'
 
@@ -29,6 +32,7 @@ export type HubSidebarProps = React.ComponentProps<typeof Sidebar>
 
 export function HubSidebar({ ...props }: HubSidebarProps) {
   const pathname = usePathname()
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -72,12 +76,22 @@ export function HubSidebar({ ...props }: HubSidebarProps) {
       <SidebarFooter>
         <SidebarGroup>
           <SidebarGroupLabel>Support</SidebarGroupLabel>
-          <SidebarGroupContent></SidebarGroupContent>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton onClick={() => setFeedbackOpen(true)}>
+                  <FolderClosedIcon className="mr-1 inline-block size-4" />
+                  Feedback
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
         </SidebarGroup>
         <div className="flex flex-row items-center justify-between">
           <UserButton />
           <ThemeToggle />
         </div>
+        <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
       </SidebarFooter>
     </Sidebar>
   )
