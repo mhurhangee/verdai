@@ -60,6 +60,10 @@ export default function ProjectDetailsPage() {
         { label: 'Projects', href: '/hub/projects' },
         { label: isLoading ? '...' : project?.title || 'Project' },
       ]}
+      backTo={{
+        label: 'Projects',
+        href: '/hub/projects'
+      }}
       actions={
         project && (
           <ProjectActions
