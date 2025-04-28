@@ -7,6 +7,7 @@ import Link from "next/link";
 import { EditProjectDialog } from "@/components/projects/edit-project-dialog";
 import { DeleteProjectDialog } from "@/components/projects/delete-project-dialog";
 import { mutate } from "swr";
+import { formatDate } from "@/lib/utils";
 
 interface ProjectsListProps {
   projects?: Project[];
@@ -42,6 +43,7 @@ function ProjectCard({ project }: { project: Project }) {
       </CardHeader>
       <CardContent>
         <p className="text-muted-foreground text-sm mb-2 line-clamp-2">{project.description ?? "No description"}</p>
+        <p className="text-muted-foreground text-sm mb-2">{formatDate(project.createdAt)}</p>
         <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <EditProjectDialog project={project} onUpdated={() => mutate('/api/project')}>
             <Button size="icon" variant="ghost" className="text-muted-foreground" aria-label="Edit project">

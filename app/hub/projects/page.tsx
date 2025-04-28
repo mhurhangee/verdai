@@ -20,10 +20,10 @@ export default function ProjectsPage() {
     <HubLayout
       title={<span className="flex items-center gap-2">Projects</span>}
       description="A list of your AI project workspaces."
-      breadcrumbs={[{ label: "Hub", href: "/hub" }, { label: "Projects" }]}
+      breadcrumbs={[{ label: "Projects" }]}
       actions={
         <CreateProjectDialog onCreated={() => mutate("/api/project")}>
-          <Button>Create Project</Button>
+          <Button className="cursor-pointer">Create Project</Button>
         </CreateProjectDialog>
       }
     >

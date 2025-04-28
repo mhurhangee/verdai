@@ -54,7 +54,7 @@ export function HubSidebar({ ...props }: HubSidebarProps) {
                   </Link>
                 </SidebarMenuButton>
                 <CreateProjectDialog onCreated={() => mutate("/api/project")}>
-                  <SidebarMenuAction>
+                  <SidebarMenuAction className="cursor-pointer">
                     <Plus /> <span className="sr-only">Add Project</span>
                   </SidebarMenuAction>
                 </CreateProjectDialog>
