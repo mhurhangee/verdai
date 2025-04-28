@@ -16,6 +16,7 @@ interface ListToolbarProps {
   onToggleSortOrder: () => void
   sortOptions: { value: string; label: string }[]
   className?: string
+  children?: React.ReactNode
 }
 
 export function ListToolbar({
@@ -26,11 +27,13 @@ export function ListToolbar({
   onSort,
   onToggleSortOrder,
   sortOptions,
-  className
+  className,
+  children
 }: ListToolbarProps) {
   return (
-    <div className={cn('flex flex-col sm:flex-row items-center gap-2', className)}>
-      <div className="relative w-full sm:w-64">
+    <div className={cn('flex flex-col gap-2 w-full', className)}>
+      {/* Search always full width */}
+      <div className="relative w-full">
         <Input
           value={search}
           onChange={e => onSearch(e.target.value)}
@@ -39,28 +42,32 @@ export function ListToolbar({
         />
         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
       </div>
-      <div className="flex items-center gap-2">
-        <Select value={sort} onValueChange={onSort} >
-          <SelectTrigger id="sort" className="w-[180px] h-8">
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent>
-            {sortOptions.map(opt => (
-              <SelectItem key={opt.value} value={opt.value}>
-                {opt.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onToggleSortOrder}
-          aria-label="Toggle sort order"
-          className="h-8 w-8"
-        >
-          {sortOrder === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
-        </Button>
+      {/* Sort and view toggle on the same line (mobile and up) */}
+      <div className="flex flex-row items-center gap-2 w-full justify-between">
+        <div className="flex gap-2 w-full max-w-xs">
+          <Select value={sort} onValueChange={onSort}>
+            <SelectTrigger id="sort" className="w-full h-8">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              {sortOptions.map(opt => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onToggleSortOrder}
+            aria-label="Toggle sort order"
+            className="h-8 w-8"
+          >
+            {sortOrder === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
+          </Button>
+        </div>
+        <div className="flex-shrink-0 flex justify-end">{children}</div>
       </div>
     </div>
   )

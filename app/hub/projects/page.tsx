@@ -80,10 +80,11 @@ export default function ProjectsPage() {
             { value: 'updatedAt', label: 'Last Updated' },
             { value: 'title', label: 'Title' },
           ]}
-        />
-        {isMounted() && (
-          <ViewModeToggle value={viewMode} onChange={setViewMode} />
-        )}
+        >
+          {isMounted() && (
+            <ViewModeToggle value={viewMode} onChange={setViewMode} />
+          )}
+        </ListToolbar>
       </div>
       {isMounted() && (
         <ProjectsList projects={filteredProjects} isLoading={isLoading} viewMode={viewMode} />
