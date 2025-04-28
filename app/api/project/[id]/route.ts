@@ -11,7 +11,7 @@ import { and, eq } from 'drizzle-orm'
 export const runtime = 'edge'
 
 // Get a single project by id for the authenticated user
-export async function GET({ params }: { params: Promise<{ id: string }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Auth user or throw error
     const userId = await getUserId()
@@ -70,7 +70,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 }
 
 // Delete a project by id for the authenticated user
-export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     // Auth user or throw error
     const userId = await getUserId()
