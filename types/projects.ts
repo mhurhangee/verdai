@@ -17,7 +17,6 @@ export type Project = z.infer<typeof ProjectSchema>
 export const ProjectUpdateSchema = ProjectSchema.pick({
   title: true,
   description: true,
-  updatedAt: true,
 })
 
 export type ProjectUpdate = z.infer<typeof ProjectUpdateSchema>

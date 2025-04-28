@@ -4,7 +4,7 @@ import { db } from '@/lib/db/drizzle'
 import { userProjects } from '@/lib/db/schema'
 import { HTTP_STATUS, createErrorResponse, genId, getUserId, parseIO } from '@/lib/utils'
 
-import { ProjectSchema } from '@/types/projects'
+import { ProjectUpdateSchema } from '@/types/projects'
 
 import { eq } from 'drizzle-orm'
 
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     const userId = await getUserId()
 
     // Parse request body or throw error
-    const { title, description } = parseIO(ProjectSchema, await req.json())
+    const { title, description } = parseIO(ProjectUpdateSchema, await req.json(), "Invalid project data")
 
     // Create new project
     const [project] = await db
