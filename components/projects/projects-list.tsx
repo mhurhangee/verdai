@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -44,11 +45,19 @@ function ProjectCard({ project }: { project: Project }) {
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <p className="text-muted-foreground mb-2 line-clamp-2 text-sm">
+      <CardContent className="space-y-2">
+        <p className="text-muted-foreground line-clamp-2 text-sm">
           {project.description ?? 'No description'}
         </p>
-        <p className="text-muted-foreground mb-2 text-sm">{formatDate(project.createdAt)}</p>
+
+        <p className="text-muted-foreground text-sm">{formatDate(project.createdAt)}</p>
+        <div className="flex flex-wrap gap-1">
+          {project.tags?.map(tag => (
+            <Badge variant="outline" key={tag}>
+              {tag}
+            </Badge>
+          ))}
+        </div>
         <div className="flex justify-end gap-2 opacity-0 transition-opacity group-hover:opacity-100">
           <EditProjectDialog project={project} onUpdated={() => mutate('/api/project')}>
             <Button

@@ -14,12 +14,14 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { Multiselect } from '@/components/ui/multiselect'
 import { Textarea } from '@/components/ui/textarea'
 
 import { ProjectUpdateSchema } from '@/types/projects'
 import type { Project } from '@/types/projects'
 
 import { toast } from 'sonner'
+import { parseClientIO } from '@/lib/utils/parse-client-io'
 
 interface EditProjectDialogProps {
   project: Project
@@ -42,14 +44,15 @@ export function EditProjectDialog({
   const [loading, setLoading] = useState(false)
   const [title, setTitle] = useState(project.title)
   const [description, setDescription] = useState(project.description ?? '')
+  const [tags, setTags] = useState<string[]>(project.tags ?? [])
   const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
-    const parse = ProjectUpdateSchema.safeParse({ title, description })
-    if (!parse.success) {
-      setError(parse.error.errors[0].message)
+    const { success, error: parseError } = parseClientIO(ProjectUpdateSchema, { title, description, tags, updatedAt: new Date() })
+    if (!success) {
+      setError(parseError)
       return
     }
     setLoading(true)
@@ -57,7 +60,7 @@ export function EditProjectDialog({
       const res = await fetch(`/api/project/${project.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description, tags }),
       })
       const data = await res.json()
       if (!res.ok || !data.success) throw new Error(data.error || 'Failed to update project')
@@ -94,6 +97,14 @@ export function EditProjectDialog({
             value={description}
             onChange={e => setDescription(e.target.value)}
             maxLength={512}
+            disabled={loading}
+          />
+          <Multiselect
+            value={tags}
+            onChange={setTags}
+            max={3}
+            maxLength={16}
+            placeholder="Add tag (max 3)"
             disabled={loading}
           />
           {error && <div className="text-destructive text-sm">{error}</div>}
