@@ -12,7 +12,7 @@ import { formatDate } from '@/lib/utils'
 
 import type { Project } from '@/types/projects'
 
-import { ArrowRight, Edit2, Trash2 } from 'lucide-react'
+import { FolderClosed, CalendarDays, ArrowRight, Edit2, Trash2, Tags, FileText } from 'lucide-react'
 import { mutate } from 'swr'
 
 interface ProjectsListProps {
@@ -39,6 +39,7 @@ function ProjectCard({ project }: { project: Project }) {
     <Card className="group relative transition-shadow hover:shadow-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
+          <FolderClosed className="w-4 h-4 text-muted-foreground" />
           <Link href={`/hub/projects/${project.id}`} className="flex items-center gap-2">
             {project.title}
             <ArrowRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
@@ -46,12 +47,16 @@ function ProjectCard({ project }: { project: Project }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <p className="text-muted-foreground line-clamp-2 text-sm">
+        <p className="flex items-center gap-2 text-muted-foreground line-clamp-2 text-sm">
+          <FileText className="w-4 h-4 text-muted-foreground" />
           {project.description ?? 'No description'}
         </p>
-
-        <p className="text-muted-foreground text-sm">{formatDate(project.createdAt)}</p>
+        <div className="flex items-center gap-2 text-muted-foreground text-sm">
+          <CalendarDays className="w-4 h-4" />
+          <span>{formatDate(project.createdAt)}</span>
+        </div>
         <div className="flex flex-wrap gap-1">
+          {project.tags?.length > 0 && <Tags className="w-4 h-4 text-muted-foreground" />}
           {project.tags?.map(tag => (
             <Badge variant="outline" key={tag}>
               {tag}

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { HubLayout } from '@/components/hub-layout'
 import { CreateProjectDialog } from '@/components/projects/create-project-dialog'
 import { ProjectsList } from '@/components/projects/projects-list'
+import { FolderClosed } from 'lucide-react'
 
 import { fetcher } from '@/lib/utils'
 
@@ -26,6 +27,7 @@ export default function ProjectsPage() {
     <HubLayout
       title={<span className="flex items-center gap-2">Projects</span>}
       description="A list of your AI project workspaces."
+      icon={<FolderClosed />}
       breadcrumbs={[{ label: 'Projects' }]}
       actions={
         <CreateProjectDialog onCreated={() => mutate('/api/project')}>
