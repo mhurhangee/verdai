@@ -22,7 +22,7 @@ import { UserButton } from '@/components/clerk-user-button'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 import { FolderClosedIcon, LayoutDashboardIcon, Plus } from 'lucide-react'
-import { HubCreateProjectDialog } from '@/components/hub-create-project-dialog'
+import { CreateProjectDialog } from '@/components/projects/create-project-dialog'
 import { mutate } from 'swr'
 
 export type HubSidebarProps = React.ComponentProps<typeof Sidebar>
@@ -53,11 +53,11 @@ export function HubSidebar({ ...props }: HubSidebarProps) {
                     Projects
                   </Link>
                 </SidebarMenuButton>
-                <HubCreateProjectDialog onCreated={() => mutate("/api/project")}>
+                <CreateProjectDialog onCreated={() => mutate("/api/project")}>
                   <SidebarMenuAction>
                     <Plus /> <span className="sr-only">Add Project</span>
                   </SidebarMenuAction>
-                </HubCreateProjectDialog>
+                </CreateProjectDialog>
 
               </SidebarMenuItem>
             </SidebarMenu>

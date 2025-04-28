@@ -14,7 +14,7 @@ interface HubCreateProjectDialogProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export function HubCreateProjectDialog({
+export function CreateProjectDialog({
   children,
   onCreated,
   open: openProp,
@@ -50,8 +50,9 @@ export function HubCreateProjectDialog({
       setDescription("");
       onCreated?.();
       onOpenChange(false); // Close dialog on success
-    } catch (err: any) {
-      setError(err.message || "Failed to create project");
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : "Failed to create project");
+      setError(err instanceof Error ? err.message : "Failed to create project");
     } finally {
       setLoading(false);
     }
