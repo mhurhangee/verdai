@@ -3,12 +3,14 @@
 import { useEffect } from 'react'
 
 import { Button } from '@/components/ui/button'
+import { ViewModeToggle, ViewMode } from '@/components/ui/view-mode-toggle'
 
 import { HubLayout } from '@/components/hub-layout'
 import { CreateProjectDialog } from '@/components/projects/create-project-dialog'
 import { ProjectsList } from '@/components/projects/projects-list'
 
 import { fetcher } from '@/lib/utils'
+import { useLocalStorage, useIsMounted } from 'usehooks-ts'
 
 import type { Project } from '@/types/projects'
 
@@ -18,6 +20,8 @@ import useSWR, { mutate } from 'swr'
 
 export default function ProjectsPage() {
   const { data, error, isLoading } = useSWR<{ projects: Project[] }>('/api/project', fetcher)
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>('projects-view-mode', 'grid')
+  const isMounted = useIsMounted()
 
   useEffect(() => {
     if (error) toast.error('Failed to load projects')
@@ -30,12 +34,22 @@ export default function ProjectsPage() {
       icon={<FolderClosed />}
       breadcrumbs={[{ label: 'Projects' }]}
       actions={
-        <CreateProjectDialog onCreated={() => mutate('/api/project')}>
-          <Button className="cursor-pointer">Create Project</Button>
-        </CreateProjectDialog>
+        <div className="flex items-center gap-3">
+          <CreateProjectDialog onCreated={() => mutate('/api/project')}>
+            <Button className="cursor-pointer">Create Project</Button>
+          </CreateProjectDialog>
+        </div>
       }
     >
-      <ProjectsList projects={data?.projects} isLoading={isLoading} />
+      <div className="mb-4 flex items-center justify-between">
+        <div />
+        {isMounted() && (
+          <ViewModeToggle value={viewMode} onChange={setViewMode} />
+        )}
+      </div>
+      {isMounted() && (
+        <ProjectsList projects={data?.projects} isLoading={isLoading} viewMode={viewMode} />
+      )}
     </HubLayout>
   )
 }
