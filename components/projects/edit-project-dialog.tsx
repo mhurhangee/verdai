@@ -17,11 +17,12 @@ import { Input } from '@/components/ui/input'
 import { Multiselect } from '@/components/ui/multiselect'
 import { Textarea } from '@/components/ui/textarea'
 
+import { parseClientIO } from '@/lib/utils/parse-client-io'
+
 import { ProjectUpdateSchema } from '@/types/projects'
 import type { Project } from '@/types/projects'
 
 import { toast } from 'sonner'
-import { parseClientIO } from '@/lib/utils/parse-client-io'
 
 interface EditProjectDialogProps {
   project: Project
@@ -50,7 +51,12 @@ export function EditProjectDialog({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
-    const { success, error: parseError } = parseClientIO(ProjectUpdateSchema, { title, description, tags, updatedAt: new Date() })
+    const { success, error: parseError } = parseClientIO(ProjectUpdateSchema, {
+      title,
+      description,
+      tags,
+      updatedAt: new Date(),
+    })
     if (!success) {
       setError(parseError)
       return

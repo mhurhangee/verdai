@@ -1,11 +1,16 @@
-"use client"
-import { EditProjectDialog } from './edit-project-dialog'
-import { DeleteProjectDialog } from './delete-project-dialog'
-import { Button } from '@/components/ui/button'
-import { Edit2, Trash2 } from 'lucide-react'
+'use client'
+
 import Link from 'next/link'
-import { mutate } from 'swr'
+
+import { Button } from '@/components/ui/button'
+
 import type { Project } from '@/types/projects'
+
+import { Edit2, Trash2 } from 'lucide-react'
+import { mutate } from 'swr'
+
+import { DeleteProjectDialog } from './delete-project-dialog'
+import { EditProjectDialog } from './edit-project-dialog'
 
 export interface ProjectActionsProps {
   project: Project
@@ -14,13 +19,21 @@ export interface ProjectActionsProps {
   onDeleted?: () => void
 }
 
-export function ProjectActions({ project, showOpenButton = true, onUpdated, onDeleted }: ProjectActionsProps) {
+export function ProjectActions({
+  project,
+  showOpenButton = true,
+  onUpdated,
+  onDeleted,
+}: ProjectActionsProps) {
   return (
     <div className="flex gap-2">
-      <EditProjectDialog project={project} onUpdated={() => {
-        mutate('/api/project')
-        onUpdated?.()
-      }}>
+      <EditProjectDialog
+        project={project}
+        onUpdated={() => {
+          mutate('/api/project')
+          onUpdated?.()
+        }}
+      >
         <Button
           size="icon"
           variant="ghost"
@@ -30,10 +43,13 @@ export function ProjectActions({ project, showOpenButton = true, onUpdated, onDe
           <Edit2 className="h-4 w-4" />
         </Button>
       </EditProjectDialog>
-      <DeleteProjectDialog project={project} onDeleted={() => {
-        mutate('/api/project')
-        onDeleted?.()
-      }}>
+      <DeleteProjectDialog
+        project={project}
+        onDeleted={() => {
+          mutate('/api/project')
+          onDeleted?.()
+        }}
+      >
         <Button
           size="icon"
           variant="ghost"

@@ -7,12 +7,12 @@ import { Button } from '@/components/ui/button'
 import { HubLayout } from '@/components/hub-layout'
 import { CreateProjectDialog } from '@/components/projects/create-project-dialog'
 import { ProjectsList } from '@/components/projects/projects-list'
-import { FolderClosed } from 'lucide-react'
 
 import { fetcher } from '@/lib/utils'
 
 import type { Project } from '@/types/projects'
 
+import { FolderClosed } from 'lucide-react'
 import { toast } from 'sonner'
 import useSWR, { mutate } from 'swr'
 

@@ -17,10 +17,11 @@ import { Input } from '@/components/ui/input'
 import { Multiselect } from '@/components/ui/multiselect'
 import { Textarea } from '@/components/ui/textarea'
 
+import { parseClientIO } from '@/lib/utils/parse-client-io'
+
 import { ProjectUpdateSchema } from '@/types/projects'
 
 import { toast } from 'sonner'
-import { parseClientIO } from '@/lib/utils/parse-client-io'
 
 interface HubCreateProjectDialogProps {
   children: React.ReactNode
@@ -47,7 +48,11 @@ export function CreateProjectDialog({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
-    const { success, error: parseError } = parseClientIO(ProjectUpdateSchema, { title, description, tags })
+    const { success, error: parseError } = parseClientIO(ProjectUpdateSchema, {
+      title,
+      description,
+      tags,
+    })
     if (!success) {
       setError(parseError)
       return

@@ -1,20 +1,16 @@
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-
-import { DeleteProjectDialog } from '@/components/projects/delete-project-dialog'
-import { EditProjectDialog } from '@/components/projects/edit-project-dialog'
-import { ProjectActions } from './project-actions'
 
 import { formatDate } from '@/lib/utils'
 
 import type { Project } from '@/types/projects'
 
-import { FolderClosed, CalendarDays, ArrowRight, Edit2, Trash2, Tags, FileText } from 'lucide-react'
-import { mutate } from 'swr'
+import { ArrowRight, CalendarDays, FileText, FolderClosed, Tags } from 'lucide-react'
+
+import { ProjectActions } from './project-actions'
 
 interface ProjectsListProps {
   projects?: Project[]
@@ -40,7 +36,7 @@ function ProjectCard({ project }: { project: Project }) {
     <Card className="group relative transition-shadow hover:shadow-lg">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <FolderClosed className="w-4 h-4 text-muted-foreground" />
+          <FolderClosed className="text-muted-foreground h-4 w-4" />
           <Link href={`/hub/projects/${project.id}`} className="flex items-center gap-2">
             {project.title}
             <ArrowRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
@@ -48,16 +44,16 @@ function ProjectCard({ project }: { project: Project }) {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-        <p className="flex items-center gap-2 text-muted-foreground line-clamp-2 text-sm">
-          <FileText className="w-4 h-4 text-muted-foreground" />
+        <p className="text-muted-foreground line-clamp-2 flex items-center gap-2 text-sm">
+          <FileText className="text-muted-foreground h-4 w-4" />
           {project.description ?? 'No description'}
         </p>
-        <div className="flex items-center gap-2 text-muted-foreground text-sm">
-          <CalendarDays className="w-4 h-4" />
+        <div className="text-muted-foreground flex items-center gap-2 text-sm">
+          <CalendarDays className="h-4 w-4" />
           <span>{formatDate(project.createdAt)}</span>
         </div>
         <div className="flex flex-wrap gap-1">
-          {project.tags?.length > 0 && <Tags className="w-4 h-4 text-muted-foreground" />}
+          {project.tags?.length > 0 && <Tags className="text-muted-foreground h-4 w-4" />}
           {project.tags?.map(tag => (
             <Badge variant="outline" key={tag}>
               {tag}

@@ -1,4 +1,4 @@
-import { jsonb, pgTable, timestamp, varchar, text } from 'drizzle-orm/pg-core'
+import { jsonb, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 
 export const userProjects = pgTable('user_projects', {
   id: varchar('id', { length: 12 }).primaryKey(),
