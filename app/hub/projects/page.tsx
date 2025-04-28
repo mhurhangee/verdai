@@ -1,17 +1,16 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { ViewModeToggle, ViewMode } from '@/components/ui/view-mode-toggle'
 import { ListToolbar } from '@/components/ui/list-toolbar'
+import { ViewMode, ViewModeToggle } from '@/components/ui/view-mode-toggle'
 
 import { HubLayout } from '@/components/hub-layout'
 import { CreateProjectDialog } from '@/components/projects/create-project-dialog'
 import { ProjectsList } from '@/components/projects/projects-list'
 
 import { fetcher } from '@/lib/utils'
-import { useLocalStorage } from 'usehooks-ts'
 import { useHasMounted } from '@/lib/utils/use-has-mounted'
 
 import type { Project } from '@/types/projects'
@@ -19,6 +18,7 @@ import type { Project } from '@/types/projects'
 import { FolderClosed } from 'lucide-react'
 import { toast } from 'sonner'
 import useSWR, { mutate } from 'swr'
+import { useLocalStorage } from 'usehooks-ts'
 
 export default function ProjectsPage() {
   const { data, error, isLoading } = useSWR<{ projects: Project[] }>('/api/project', fetcher)
@@ -40,16 +40,18 @@ export default function ProjectsPage() {
     let result = data.projects
     if (search.trim()) {
       const q = search.toLowerCase()
-      result = result.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        (p.description?.toLowerCase().includes(q) ?? false) ||
-        (p.tags?.some(tag => tag.toLowerCase().includes(q)))
+      result = result.filter(
+        p =>
+          p.title.toLowerCase().includes(q) ||
+          (p.description?.toLowerCase().includes(q) ?? false) ||
+          p.tags?.some(tag => tag.toLowerCase().includes(q))
       )
     }
     result = [...result].sort((a, b) => {
       let cmp = 0
       if (sort === 'title') cmp = a.title.localeCompare(b.title)
-      else if (sort === 'updatedAt') cmp = new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
+      else if (sort === 'updatedAt')
+        cmp = new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
       return sortOrder === 'asc' ? cmp : -cmp
     })
     return result
@@ -69,7 +71,7 @@ export default function ProjectsPage() {
         </div>
       }
     >
-      <div className="mb-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div className="mb-4 flex flex-col items-center justify-between gap-2 sm:flex-row">
         <ListToolbar
           search={search}
           onSearch={setSearch}
@@ -82,9 +84,7 @@ export default function ProjectsPage() {
             { value: 'title', label: 'Title' },
           ]}
         >
-          {hasMounted && (
-            <ViewModeToggle value={viewMode} onChange={setViewMode} />
-          )}
+          {hasMounted && <ViewModeToggle value={viewMode} onChange={setViewMode} />}
         </ListToolbar>
       </div>
       <ProjectsList

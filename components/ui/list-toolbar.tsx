@@ -1,9 +1,19 @@
-"use client"
-import { Input } from './input'
-import { Button } from './button'
-import { ArrowUp, ArrowDown, Search } from 'lucide-react'
+'use client'
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
 import { cn } from '@/lib/utils'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+
+import { ArrowDown, ArrowUp, Search } from 'lucide-react'
+
+import { Button } from './button'
+import { Input } from './input'
 
 export type SortOrder = 'asc' | 'desc'
 
@@ -28,10 +38,10 @@ export function ListToolbar({
   onToggleSortOrder,
   sortOptions,
   className,
-  children
+  children,
 }: ListToolbarProps) {
   return (
-    <div className={cn('flex flex-col gap-2 w-full', className)}>
+    <div className={cn('flex w-full flex-col gap-2', className)}>
       {/* Search always full width */}
       <div className="relative w-full">
         <Input
@@ -40,13 +50,13 @@ export function ListToolbar({
           placeholder="Search..."
           className="pl-8"
         />
-        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
       </div>
       {/* Sort and view toggle on the same line (mobile and up) */}
-      <div className="flex flex-row items-center gap-2 w-full justify-between">
-        <div className="flex gap-2 w-full max-w-xs">
+      <div className="flex w-full flex-row items-center justify-between gap-2">
+        <div className="flex w-full max-w-xs gap-2">
           <Select value={sort} onValueChange={onSort}>
-            <SelectTrigger id="sort" className="w-full h-8">
+            <SelectTrigger id="sort" className="h-8 w-full">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
@@ -64,10 +74,14 @@ export function ListToolbar({
             aria-label="Toggle sort order"
             className="h-8 w-8"
           >
-            {sortOrder === 'asc' ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
+            {sortOrder === 'asc' ? (
+              <ArrowUp className="h-4 w-4" />
+            ) : (
+              <ArrowDown className="h-4 w-4" />
+            )}
           </Button>
         </div>
-        <div className="flex-shrink-0 flex justify-end">{children}</div>
+        <div className="flex flex-shrink-0 justify-end">{children}</div>
       </div>
     </div>
   )

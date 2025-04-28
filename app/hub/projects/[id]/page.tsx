@@ -62,7 +62,7 @@ export default function ProjectDetailsPage() {
       ]}
       backTo={{
         label: 'Projects',
-        href: '/hub/projects'
+        href: '/hub/projects',
       }}
       actions={
         project && (

@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react'
  */
 export function useHasMounted() {
   const [hasMounted, setHasMounted] = useState(false)
-  useEffect(() => { setHasMounted(true) }, [])
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
   return hasMounted
 }
