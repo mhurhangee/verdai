@@ -76,7 +76,7 @@ export function HubLayout({
         )}
       >
         {/* Top Header with Sidebar Toggle and Breadcrumbs */}
-        <div className="bg-background sticky top-0 z-0 mb-4 flex items-center justify-between gap-4 py-2 shadow-sm transition-all">
+        <div className="bg-background sticky top-0 z-0 mb-4 flex items-center justify-between gap-4 transition-all">
           <div className="flex items-center gap-4 overflow-hidden">
             <Tooltip>
               <TooltipTrigger asChild>
