@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { HTTP_STATUS, createErrorResponse, getUserId, genId, parseIO } from '@/lib/utils'
 import { db } from '@/lib/db/drizzle'
 import { userProjects } from '@/lib/db/schema'
+import { HTTP_STATUS, createErrorResponse, genId, getUserId, parseIO } from '@/lib/utils'
+
 import { ProjectSchema } from '@/types/projects'
 
 import { eq } from 'drizzle-orm'
