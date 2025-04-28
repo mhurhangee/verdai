@@ -19,9 +19,11 @@ import {
 
 import { OrganizationSwitcher } from '@/components/clerk-org-switcher'
 import { UserButton } from '@/components/clerk-user-button'
+import { CreateProjectDialog } from '@/components/projects/create-project-dialog'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 import { FolderClosedIcon, LayoutDashboardIcon, Plus } from 'lucide-react'
+import { mutate } from 'swr'
 
 export type HubSidebarProps = React.ComponentProps<typeof Sidebar>
 
@@ -51,9 +53,11 @@ export function HubSidebar({ ...props }: HubSidebarProps) {
                     Projects
                   </Link>
                 </SidebarMenuButton>
-                <SidebarMenuAction onClick={() => {}}>
-                  <Plus /> <span className="sr-only">Add Project</span>
-                </SidebarMenuAction>
+                <CreateProjectDialog onCreated={() => mutate('/api/project')}>
+                  <SidebarMenuAction className="cursor-pointer">
+                    <Plus /> <span className="sr-only">Add Project</span>
+                  </SidebarMenuAction>
+                </CreateProjectDialog>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>

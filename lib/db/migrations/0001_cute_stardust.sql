@@ -1,0 +1,1 @@
+ALTER TABLE "user_projects" ADD COLUMN "tags" text[] DEFAULT '{}' NOT NULL;

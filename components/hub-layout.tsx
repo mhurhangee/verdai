@@ -111,12 +111,16 @@ export function HubLayout({
           </div>
           {!isMobile && backTo && (
             <div>
-              <Link href={backTo.href} legacyBehavior passHref>
-                <Button variant="ghost" className="text-muted-foreground gap-1 px-2 font-medium">
+              <Button
+                variant="ghost"
+                className="text-muted-foreground gap-1 px-2 font-medium"
+                asChild
+              >
+                <Link href={backTo.href}>
                   <ArrowLeftIcon className="size-4" />
                   {backTo.label}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           )}
 
@@ -141,7 +145,7 @@ export function HubLayout({
               )}
               {!isMobile && combinedActions}
             </div>
-            {description && <p className="text-muted-foreground mt-2 text-lg">{description}</p>}
+            {description && <div className="text-muted-foreground mt-2 text-lg">{description}</div>}
           </div>
         )}
 
