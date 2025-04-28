@@ -11,7 +11,8 @@ import { CreateProjectDialog } from '@/components/projects/create-project-dialog
 import { ProjectsList } from '@/components/projects/projects-list'
 
 import { fetcher } from '@/lib/utils'
-import { useLocalStorage, useIsMounted } from 'usehooks-ts'
+import { useLocalStorage } from 'usehooks-ts'
+import { useHasMounted } from '@/lib/utils/use-has-mounted'
 
 import type { Project } from '@/types/projects'
 
@@ -22,7 +23,7 @@ import useSWR, { mutate } from 'swr'
 export default function ProjectsPage() {
   const { data, error, isLoading } = useSWR<{ projects: Project[] }>('/api/project', fetcher)
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>('projects-view-mode', 'grid')
-  const isMounted = useIsMounted()
+  const hasMounted = useHasMounted()
 
   // Toolbar state
   const [search, setSearch] = useState('')
@@ -81,14 +82,16 @@ export default function ProjectsPage() {
             { value: 'title', label: 'Title' },
           ]}
         >
-          {isMounted() && (
+          {hasMounted && (
             <ViewModeToggle value={viewMode} onChange={setViewMode} />
           )}
         </ListToolbar>
       </div>
-      {isMounted() && (
-        <ProjectsList projects={filteredProjects} isLoading={isLoading} viewMode={viewMode} />
-      )}
+      <ProjectsList
+        projects={filteredProjects}
+        isLoading={isLoading}
+        viewMode={hasMounted ? viewMode : 'grid'}
+      />
     </HubLayout>
   )
 }
